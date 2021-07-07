@@ -11,13 +11,16 @@ const initialState = {
     counterValue: 0
 }
 const counterReduser = (state = initialState, action) => {
-    //console.log({state, action})
+    // console.log(state, action)
     switch (action.type) {
         case 'INC': {
             return {...state, counterValue: state.counterValue + 1}
         }
         case 'DEC': {
             return {...state, counterValue: state.counterValue - 1}
+        }
+        case 'INC-CUSTOM': {
+            return {...state, counterValue: state.counterValue + action.payload}
         }
         case 'RESET': {
             return {...state, counterValue: 0}
@@ -27,16 +30,8 @@ const counterReduser = (state = initialState, action) => {
     }
 }
 
-const store = createStore(counterReduser);
 
-// console.log(store);
-// console.log('not from subscribe', store.getState())
-// store.subscribe(() => {
-//     console.log('from subscribe', store.getState())
-// })
-// store.dispatch({
-//     type:'INC'
-// })
+const store = createStore(counterReduser);
 
 ReactDOM.render(
     <React.StrictMode>

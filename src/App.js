@@ -1,33 +1,48 @@
 import {useSelector, useDispatch} from 'react-redux';
 
-const SomeNestedChildComponent = () => {
-    // const counter = useSelector((state) => state.counterValue); або 2й варіант одразу деструктуризувати об'єкт
-    const counter = useSelector(({counterValue}) => counterValue);
-    //console.log(counter);
-
-    return (
-        <div>
-            SOMETHING
-            <h1> {counter}</h1>
-
-        </div>
-    )
-}
-
-const SomeChildComponent = () => {
-    return (<SomeNestedChildComponent/>)
-}
-
 export default function App() {
+    const counter = useSelector(({counterValue}) => counterValue);
     const dispatch = useDispatch();
+
     return (
+
         <div>
             <button onClick={() => {
-                dispatch({type: 'INC'})
+                dispatch({
+                    type: 'INC'
+                })
             }
-            }>inc
+            }>Add 1
             </button>
-            <SomeChildComponent/>
+
+            <button onClick={() => {
+                dispatch({
+                    type: 'DEC'
+                })
+            }
+            }>Minus 1
+            </button>
+
+            <input type="number" placeholder="enter a number" id="input"/>
+
+            <button onClick={() => {
+                dispatch({
+                    type: 'INC-CUSTOM',
+                    payload: +document.getElementById('input').value
+                })
+            }
+            }>Add custom
+            </button>
+
+            <h1>{counter}</h1>
+
+            <button onClick={() => {
+                dispatch({
+                    type: 'RESET'
+                })
+            }
+            }>Reset
+            </button>
         </div>
     );
 }
